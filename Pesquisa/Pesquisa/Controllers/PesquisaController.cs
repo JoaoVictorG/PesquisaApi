@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using PesquisaApi.Model;
 using System.Net;
+using HtmlAgilityPack;
 
 namespace PesquisaApi.Controllers
 {
@@ -18,10 +19,15 @@ namespace PesquisaApi.Controllers
             using (var client = new WebClient())
             {
                 var response = client.DownloadString(link);
-                return response;
+
+                int first = response.IndexOf("<div class=\"BNeawe UPmit AP7Wnd lRVwie\">") + "<div class=\"BNeawe UPmit AP7Wnd lRVwie\">".Length;
+                int last = response.LastIndexOf("</div>");
+                string title = response.Substring(first, last - first);
+                return title;
             }
-            
+
         }
 
     }
 }
+
