@@ -15,15 +15,23 @@ namespace PesquisaApi.Controllers
         public string GetPesquisa(string nome)
         {
             //string nomeFormat = nome.Replace(" ", "+");
-            string link = $"https://www.google.com/search?q={nome}";
+            string linkPesquisa = $"https://www.google.com/search?q={nome}";
             using (var client = new WebClient())
             {
-                var response = client.DownloadString(link);
-
+                string response = client.DownloadString(linkPesquisa);
                 int first = response.IndexOf("<div class=\"BNeawe UPmit AP7Wnd lRVwie\">") + "<div class=\"BNeawe UPmit AP7Wnd lRVwie\">".Length;
-                int last = response.LastIndexOf("</div>");
-                string title = response.Substring(first, last - first);
-                return title;
+                int last = response.IndexOf("</div>", first);
+                string link = response.Substring(first, last - first);
+                string linkFinal = $"Link: {link}";
+
+
+                //string textoTeste = "<div class=\"BNeawe UPmit AP7Wnd lRVwie\">Testando escolha</div>";
+
+                //int first = textoTeste.IndexOf("<div class=\"BNeawe UPmit AP7Wnd lRVwie\">") + "<div class=\"BNeawe UPmit AP7Wnd lRVwie\">".Length;
+                //int last = textoTeste.IndexOf("</div>");
+                //string link = textoTeste.Substring(first, last - first);
+                //string linkFinal = $"Link:{link}";
+                return linkFinal;
             }
 
         }
