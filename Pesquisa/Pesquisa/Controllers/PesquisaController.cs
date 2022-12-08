@@ -21,6 +21,7 @@ namespace PesquisaApi.Controllers
                 string response = client.DownloadString(linkPesquisa);
                 int firstLink = response.IndexOf("<div class=\"BNeawe UPmit AP7Wnd lRVwie\">") + "<div class=\"BNeawe UPmit AP7Wnd lRVwie\">".Length;
                 int lastLink = response.IndexOf("</div>", firstLink);
+
                 string link = response.Substring(firstLink, lastLink - firstLink);
 
                 int firstTitle = response.IndexOf("<div class=\"BNeawe vvjwJb AP7Wnd\">") + "<div class=\"BNeawe vvjwJb AP7Wnd\">".Length;
@@ -32,20 +33,7 @@ namespace PesquisaApi.Controllers
 
                 return pesquisa;
             }
-
         }
-        //[HttpGet("{nome}")]
-        //public string GetPesquisa(string nome)
-        //{
-        //    //string nomeFormat = nome.Replace(" ", "+");
-        //    string link = $"https://www.google.com/search?q={nome}";
-        //    using (var client = new WebClient())
-        //    {
-        //        var response = client.DownloadString(link);
-        //        return response;
-        //    }
-
-        //}
 
     }
 }
